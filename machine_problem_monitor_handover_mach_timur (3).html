@@ -110,7 +110,7 @@
                 </span>
               </div>
               <p class="text-xs text-slate-400 flex flex-wrap items-center gap-2 mt-0.5">
-                <span>Machining SZ, KR, WA & AGV Supply</span>
+                <span>Machining SZ/5 Item, KR, WA & AGV Supply</span>
                 <span>•</span>
                 <span id="live-clock" class="font-mono text-amber-400 font-semibold">--:--:--</span>
                 <span>•</span>
@@ -144,7 +144,7 @@
 
           <button id="btn-open-activity" type="button" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold shadow-sm transition">
             <i class="fa-solid fa-list-check"></i>
-            <span>+ Activity PM/Repair</span>
+            <span>+ Activity PM/Repair/Daily check/5S/KYM/Icare</span>
           </button>
 
           <button id="btn-open-share" type="button" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold shadow-sm transition">
@@ -338,8 +338,8 @@
             <option value="ALL">Semua Lini Produksi</option>
             <option value="Machining WA">Machining WA</option>
             <option value="Machining KR">Machining KR</option>
-            <option value="Machining SZ">Machining SZ</option>
-            <option value="AGV SUPPLY">AGV SUPPLY</option>
+            <option value="Machining SZ/5 Item">Machining SZ/5 Item</option>
+            <option value="AGV SUPPLY Assy">AGV SUPPLY Assy</option>
           </select>
         </div>
 
@@ -497,8 +497,8 @@
             <select id="input-line" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
               <option value="Machining WA">Machining WA</option>
               <option value="Machining KR">Machining KR</option>
-              <option value="Machining SZ">Machining SZ</option>
-              <option value="AGV SUPPLY">AGV SUPPLY</option>
+              <option value="Machining SZ/5 Item">Machining SZ/5 Item</option>
+              <option value="AGV Supply Assy">AGV Supply Assy</option>
             </select>
           </div>
 
@@ -891,7 +891,7 @@
           </span>
           <div>
             <h2 class="text-base font-bold">Tambah Activity Tambahan</h2>
-            <p class="text-xs text-indigo-200">PM, Repair Sparepart, Kalibrasi, atau Improvement</p>
+            <p class="text-xs text-indigo-200">PM, Repair Sparepart, 5S, atau Improvement,Monitoring activity,Daily check,KY / I care assesment</p>
           </div>
         </div>
         <button type="button" data-close-modal="modal-new-activity" class="p-2 rounded-lg text-indigo-200 hover:text-white hover:bg-indigo-800 transition">
@@ -930,9 +930,9 @@
             <select id="act-line" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
               <option value="Machining WA">Machining WA</option>
               <option value="Machining KR">Machining KR</option>
-              <option value="Machining SZ">Machining SZ</option>
-              <option value="AGV SUPPLY">AGV SUPPLY</option>
-              <option value="Workshop Maintenance">Workshop Maintenance</option>
+              <option value="Machining SZ/5 Item">Machining SZ/5 Item</option>
+              <option value="AGV Supply assy">AGV Supply assy</option>
+              <option value="Clean Room / Area Overhoul Maintenance">Clean Room / Area Overhoul Maintenance</option>
             </select>
           </div>
 
@@ -1193,10 +1193,10 @@ function getOrCreateSheet() {
 
       const SUBLINES_BY_LINE = {
         'Machining WA': ['Cyb WA', 'Crsh WA', 'Cyh WA'],
-        'Machining KR': ['Cyb KR', 'Cyh KR', 'Crsh KR', 'Tcc KR'],
-        'Machining SZ': ['Cyh 3SZ', 'Cch D40/D16', 'Oilpan D40', 'Cch D05E', 'Bpl D05E'],
-        'AGV SUPPLY': ['AGV Supply Line'],
-        'Workshop Maintenance': ['Workshop Area']
+        'Machining KR': ['Cyb KR', 'Cyh KR', 'Crsh KR'],
+        'Machining SZ/5 Item': ['Cyh 3SZ', 'Cch D40/D16', 'Oilpan D40', 'Cch D05E', 'Bpl D05E', 'Tcc KR'],
+        'AGV Supply assy': ['AGV Supply assy Line'],
+        'Clean Room / Area Overhoul Maintenance': ['Clean Room / Area Overhoul Maintenance']
       };
 
       let pendingNewPhotoDataUrl = null;
@@ -1321,7 +1321,7 @@ function getOrCreateSheet() {
         if (includeAllOption) {
           optionsHtml += '<option value="ALL">Semua Detail Jalur</option>';
           const list = lineValue === 'ALL'
-            ? [...SUBLINES_BY_LINE['Machining WA'], ...SUBLINES_BY_LINE['Machining KR'], ...SUBLINES_BY_LINE['Machining SZ'], ...SUBLINES_BY_LINE['AGV SUPPLY']]
+            ? [...SUBLINES_BY_LINE['Machining WA'], ...SUBLINES_BY_LINE['Machining KR'], ...SUBLINES_BY_LINE['Machining SZ/5 Item'], ...SUBLINES_BY_LINE['AGV SUPPLY']]
             : (SUBLINES_BY_LINE[lineValue] || []);
           list.forEach(sub => {
             optionsHtml += `<option value="${escapeHTML(sub)}">${escapeHTML(sub)}</option>`;
@@ -2263,7 +2263,7 @@ function getOrCreateSheet() {
         const closedCount = baseIssues.filter(i => isIssueClosed(i.status)).length;
 
         let text = `*MACHINE PROBLEM MONITOR & HANDOVER MACH TIMUR*\n`;
-        text += `Area: Machining SZ, KR, WA & AGV Supply\n`;
+        text += `Area: Machining SZ/5 Item, KR, WA & AGV Supply\n`;
         text += `Tanggal: ${reportDateLabel}\n`;
         text += `Waktu Laporan: ${periodRange}\n`;
         text += `Ringkasan: ${activeCount} Aktif | ${closedCount} Close/Selesai\n`;
