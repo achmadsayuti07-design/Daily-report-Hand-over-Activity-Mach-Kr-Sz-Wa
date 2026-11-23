@@ -1198,7 +1198,26 @@ function getOrCreateSheet() {
         'AGV Supply assy': ['AGV Supply assy Line'],
         'Clean Room / Area Overhoul Maintenance': ['Clean Room / Area Overhoul Maintenance']
       };
-
+<!-- ... existing code ... -->
+      function populateSublineSelect(lineValue, selectEl, includeAllOption = false) {
+        if (!selectEl) return;
+        let optionsHtml = '';
+        if (includeAllOption) {
+          optionsHtml += '<option value="ALL">Semua Detail Jalur</option>';
+          const list = lineValue === 'ALL'
+            ? [
+                ...(SUBLINES_BY_LINE['Machining WA'] || []),
+                ...(SUBLINES_BY_LINE['Machining KR'] || []),
+                ...(SUBLINES_BY_LINE['Machining SZ/5 Item'] || []),
+                ...(SUBLINES_BY_LINE['AGV Supply assy'] || [])
+              ]
+            : (SUBLINES_BY_LINE[lineValue] || []);
+          list.forEach(sub => {
+            optionsHtml += `<option value="${escapeHTML(sub)}">${escapeHTML(sub)}</option>`;
+          });
+        } else {
+          const list = SUBLINES_BY_LINE[lineValue] || [];
+<!-- ... existing code ... -->
       let pendingNewPhotoDataUrl = null;
       let pendingLogPhotoDataUrl = null;
       let deferredInstallPrompt = null;
