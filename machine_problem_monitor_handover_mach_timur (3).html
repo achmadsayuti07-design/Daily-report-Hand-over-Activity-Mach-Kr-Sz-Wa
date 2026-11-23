@@ -110,7 +110,7 @@
                 </span>
               </div>
               <p class="text-xs text-slate-400 flex flex-wrap items-center gap-2 mt-0.5">
-                <span>Machining SZ/5 Item, KR, WA & AGV Supply</span>
+                <span>Machining SZ/5 Item, KR, WA & AGV Supply Assy</span>
                 <span>•</span>
                 <span id="live-clock" class="font-mono text-amber-400 font-semibold">--:--:--</span>
                 <span>•</span>
@@ -339,7 +339,7 @@
             <option value="Machining WA">Machining WA</option>
             <option value="Machining KR">Machining KR</option>
             <option value="Machining SZ/5 Item">Machining SZ/5 Item</option>
-            <option value="AGV SUPPLY Assy">AGV SUPPLY Assy</option>
+            <option value="AGV Supply Assy">AGV Supply Assy</option>
           </select>
         </div>
 
@@ -1321,7 +1321,7 @@ function getOrCreateSheet() {
         if (includeAllOption) {
           optionsHtml += '<option value="ALL">Semua Detail Jalur</option>';
           const list = lineValue === 'ALL'
-            ? [...SUBLINES_BY_LINE['Machining WA'], ...SUBLINES_BY_LINE['Machining KR'], ...SUBLINES_BY_LINE['Machining SZ/5 Item'], ...SUBLINES_BY_LINE['AGV SUPPLY']]
+            ? [...SUBLINES_BY_LINE['Machining WA'], ...SUBLINES_BY_LINE['Machining KR'], ...SUBLINES_BY_LINE['Machining SZ/5 Item'], ...SUBLINES_BY_LINE['AGV Supply Assy']]
             : (SUBLINES_BY_LINE[lineValue] || []);
           list.forEach(sub => {
             optionsHtml += `<option value="${escapeHTML(sub)}">${escapeHTML(sub)}</option>`;
@@ -2263,7 +2263,7 @@ function getOrCreateSheet() {
         const closedCount = baseIssues.filter(i => isIssueClosed(i.status)).length;
 
         let text = `*MACHINE PROBLEM MONITOR & HANDOVER MACH TIMUR*\n`;
-        text += `Area: Machining SZ/5 Item, KR, WA & AGV Supply\n`;
+        text += `Area: Machining SZ/5 Item, KR, WA & AGV Supply Assy\n`;
         text += `Tanggal: ${reportDateLabel}\n`;
         text += `Waktu Laporan: ${periodRange}\n`;
         text += `Ringkasan: ${activeCount} Aktif | ${closedCount} Close/Selesai\n`;
